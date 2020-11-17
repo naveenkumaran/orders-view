@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: orders-view
+  namespace: "kafka-demo"
+  labels:
+    app: "orders-view"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "orders-view"
+  template:
+    metadata:
+      labels:
+        app: "orders-view"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - "orders-view-app"
+              topologyKey: "kubernetes.io/hostname"
+      volumes:
+        - name: application-properties
+          secret:
+            secretName: application-properties
+      containers:
+        - name: "orders-view"
+          image: docker.io/naveenkumarana/orders-view-app
+          ports:
+            containerPort: 8080
+          volumeMounts:
+            - mountPath: /mnt/app
+              name: appication-properties
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: /mnt/app/application.yaml
+            - name: JAVA_TOOL_OPTIONS
+              value: -DLOGLEVEL=DEBUG

@@ -1,0 +1,9 @@
+---
+spring:
+  kafka:
+    streams:
+      application-id: orders-view
+      replication-factor: 1
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

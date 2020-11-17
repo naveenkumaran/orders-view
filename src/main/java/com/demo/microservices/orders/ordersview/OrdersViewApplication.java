@@ -36,10 +36,8 @@ public class OrdersViewApplication {
 class OrderView {
 
 	public void orderView(StreamsBuilder builder) {
-		var keySerde = Serdes.Integer();
-		var valueSerde = Serdes.String();
 		builder.table("orders"
-				, Consumed.with(keySerde, valueSerde)
+				, Consumed.with(Serdes.Integer(), Serdes.Integer())
 				, Materialized.as("orders-store"));
 	}
 }
