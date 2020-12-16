@@ -1,0 +1,9 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: mvn install -DskipTests=false
+  - command: confluent local start
+
+ports:
+  - port: 8080
