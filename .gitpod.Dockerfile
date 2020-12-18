@@ -5,10 +5,10 @@ FROM gitpod/workspace-full
 # Download Apache Kafka Head quarters library GUI to manage Kafka
 # 
 #
-# More information: https://www.gitpod.io/docs/config-docker/
-ENV HOME /home/gitpod/lib
-ENV CONFLUENT_HOME ${HOME}/confluent-5.5.1
+ENV BINARY_DIR /home/gitpod/lib
+ENV CONFLUENT_HOME ${BINARY_DIR}/confluent-5.5.1
 ENV WORKSPACE /workspace/orders-view
+# Set up ${CONFLUENT_HOME}/bin to PATH to execute Commands from any directory
 ENV PATH ${CONFLUENT_HOME}/bin:$PATH
 ENV PATH /home/gitpod/bin:${PATH}
 
